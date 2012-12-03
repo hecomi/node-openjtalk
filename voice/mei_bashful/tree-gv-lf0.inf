@@ -1,0 +1,11 @@
+QS Utt_Len_Acc<=2 { "*+1-*","*+2-*" }
+QS Utt_Len_Mora<=20 { "*-?","*-1?","*-20" }
+QS Utt_Len_Mora<=32 { "*-?","*-1?","*-2?","*-30","*-31","*-32" }
+
+{*}[2]
+{
+   0 Utt_Len_Mora<=20                                       -1               -2      
+  -1 Utt_Len_Mora<=32                                    "gv_lf0_2"       "gv_lf0_1" 
+  -2 Utt_Len_Acc<=2                                      "gv_lf0_4"       "gv_lf0_3" 
+}
+

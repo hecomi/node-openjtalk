@@ -1,0 +1,16 @@
+{
+  "name": "OpenJTalk",
+  "version": "0.0.1",
+  "description": "TTS using OpenJTalk",
+  "main": "openjtalk.js",
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node test/test",
+    "install": "make && node-gyp rebuild"
+  },
+  "repository": "",
+  "author": "hecomi",
+  "gypfile": true
+}
