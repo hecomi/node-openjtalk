@@ -1,6 +1,6 @@
 var OpenJTalk = require('../openjtalk.js');
 var mei1 = new OpenJTalk(); // mei_normal を使用
-var mei2 = new OpenJTalk({voice: './voice/mei_sad'});
+var mei2 = new OpenJTalk({voice: './voice/mei_angry'});
 var mei3 = new OpenJTalk({voice: './voice/mei_happy'});
 
 mei1.talk('これはテストです'); // コールバックは省略できる

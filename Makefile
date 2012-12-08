@@ -15,4 +15,5 @@ openjtalk:
 		--with-hts-engine-header-path=$(HTSENGINE_DIR)/include \
 		--with-hts-engine-library-path=$(HTSENGINE_DIR)/lib && \
 	make
+	cp $(OPENJTALK_DIR)/bin/open_jtalk bin/.
 

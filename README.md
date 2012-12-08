@@ -7,19 +7,13 @@ node-openjtalk : Node.js TTS module using OpenJTalk
 
 ライセンス
 --------------
-ライセンスは以下のライブラリに準拠します。
+ライセンスは各ライブラリに準拠します。
+私が書いた場所については MIT ライセンスとなります。
 + [OpenJTalk](http://open-jtalk.sourceforge.net/) : 修正BSDライセンス
-+ [PortAudio](http://www.portaudio.com/) : MITライセンス
 
 動作環境
 --------------
 MacOS X 10.8.2 および Ubuntu 10.04 で動作を確認しています。
-コンパイルには以下のものが必要です。（）内はこちらで動作させたバージョンになります。
-
-+ C++11 対応のコンパイラ （ Mac 付属の Apple clang version 4.0 / g++-4.7 (Ubuntu) ）
-+ Boost ( 1.49.0 / 1.52.0 (brew版) )
-+ PortAudio ( portaudio19-dev (Ubuntu) / brew版 )
-+ libsndfile (libsndfile-dev (Ubuntu) / brew版 )
 
 インストール
 --------------
@@ -27,8 +21,8 @@ MacOS X 10.8.2 および Ubuntu 10.04 で動作を確認しています。
 $ cd YOUR_NODE_PROJECT_DIR
 $ git clone https://github.com/hecomi/node-openjtalk
 $ mkdir node_modules
-$ mv node-julius node_modules/openjtalk
-$ cd node_modules/julius
+$ mv node-openjtalk node_modules/openjtalk
+$ cd node_modules/openjtalk
 $ npm install
 ```
 
@@ -95,7 +89,7 @@ options の各設定値は省略可能です。ちなみに上記がデフォル
 
 注意
 --------------
-処理的には、OpenJTalk で wav を生成、それを portaudio で再生、喋り終わったら削除、としているので、しゃべっている途中に中断すると wav ファイルが実行しているディレクトリに残ります。手動で削除して下さい。
+処理的には、OpenJTalk で wav を生成、それを afplay/aplay で再生、喋り終わったら削除、としているので、しゃべっている途中に中断すると wav ファイルが実行しているディレクトリに残ります。手動で削除して下さい。
 
 詳細
 --------------
