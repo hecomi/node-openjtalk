@@ -1,7 +1,8 @@
+var path = require('path');
 var OpenJTalk = require('../openjtalk.js');
 var mei1 = new OpenJTalk(); // mei_normal を使用
-var mei2 = new OpenJTalk({voice: './voice/mei_angry'});
-var mei3 = new OpenJTalk({voice: './voice/mei_happy'});
+var mei2 = new OpenJTalk({ htsvoice: './voice/mei/mei_angry.htsvoice' });
+var mei3 = new OpenJTalk({ htsvoice: './voice/mei/mei_happy.htsvoice' });
 
 mei1.talk('これはテストです'); // コールバックは省略できる
 setTimeout(function() {

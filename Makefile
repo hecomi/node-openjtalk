@@ -1,6 +1,6 @@
 OS = ${shell uname}
-HTSENGINE_DIR = ${shell pwd}/lib/hts_engine_API-1.06/
-OPENJTALK_DIR = ${shell pwd}/lib/open_jtalk-1.05/
+HTSENGINE_DIR = ${shell pwd}/lib/hts_engine_API-1.09/
+OPENJTALK_DIR = ${shell pwd}/lib/open_jtalk-1.08/
 
 all: htsengine openjtalk
 
