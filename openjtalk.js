@@ -4,7 +4,7 @@ var exec = require('child_process').exec
 ;
 
 // デフォルトパラメタ
-var DefaultParams = {
+var DefaultOptions = {
 	openjtalk_bin   : path.join(__dirname, '/bin/open_jtalk'),
 	dic_dir         : path.join(__dirname, '/dic/open_jtalk_dic_utf_8-1.08'),
 	htsvoice        : path.join(__dirname, '/voice/mei/mei_normal.htsvoice'),
@@ -21,16 +21,13 @@ var DefaultParams = {
 // OpenJTalk で wav ファイルを生成するクラス
 var OpenJTalk = function(args) {
 	var args = args || {};
-	var options = args.options || {};
-
-	// 音素ファイルと辞書ファイルをセット
-	this.dicDir   = args.hasOwnProperty('dic')   ? args.dic   : DefaultParams.dic_dir;
-	this.voiceDir = args.hasOwnProperty('voice') ? args.voice : DefaultParams.voice_dir;
-
-	// パラメタをセット
-	var params = DefaultParams;
-	for (var key in options) params[key] = options[key];
-	for (var key in params)  this[key] = params[key];
+	var options = DefaultOptions;
+	for (var key in args) {
+		options[key] = args[key];
+	}
+	for (var key in options) {
+		this[key] = options[key];
+	}
 };
 
 OpenJTalk.prototype = {
@@ -81,7 +78,7 @@ OpenJTalk.prototype = {
 		var ojtCmd  =
 			this.openjtalk_bin +
 			' -m  ' + this.htsvoice +
-			' -x  ' + this.dicDir +
+			' -x  ' + this.dic_dir +
 			' -s  ' + this.sampling_rate +
 			' -p  ' + pitch +
 			' -a  ' + this.alpha +

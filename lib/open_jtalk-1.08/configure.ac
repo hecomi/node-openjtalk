@@ -284,8 +284,8 @@ elif test x$charset = xsjis -o x$charset = xshift-jis -o x$charset = xshift_jis 
    CXXFLAGS="$CXXFLAGS -finput-charset=cp932 -fexec-charset=cp932 "
 elif test x$charset = xutf8 -o x$charset = xutf-8 -o x$charset = xutf_8 -o x$charset = xUTF8 -o x$charset = xUTF-8 -o x$charset = xUTF_8 ; then
    CHARSET="-D CHARSET_UTF_8"
-   CFLAGS="$CFLAGS -finput-charset=UTF-8 -fexec-charset=UTF-8 "
-   CXXFLAGS="$CXXFLAGS -finput-charset=UTF-8 -fexec-charset=UTF-8 "
+#   CFLAGS="$CFLAGS -finput-charset=UTF-8 -fexec-charset=UTF-8 "
+#   CXXFLAGS="$CXXFLAGS -finput-charset=UTF-8 -fexec-charset=UTF-8 "
 else
    AC_MSG_ERROR(Cannot recognize $charset)
 fi
