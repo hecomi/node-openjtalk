@@ -1,6 +1,7 @@
 OS = ${shell uname}
-HTSENGINE_DIR = ${shell pwd}/lib/hts_engine_API-1.09/
-OPENJTALK_DIR = ${shell pwd}/lib/open_jtalk-1.08/
+MODULE_DIR = ${shell pwd}
+HTSENGINE_DIR = $(MODULE_DIR)/lib/hts_engine_API-1.09/
+OPENJTALK_DIR = $(MODULE_DIR)/lib/open_jtalk-1.08/
 
 all: htsengine openjtalk
 
@@ -15,9 +16,12 @@ openjtalk:
 		--with-hts-engine-header-path=$(HTSENGINE_DIR)/include \
 		--with-hts-engine-library-path=$(HTSENGINE_DIR)/lib && \
 	make
-	cp $(OPENJTALK_DIR)/bin/open_jtalk bin/.
+	mkdir -p $(MODULE_DIR)/bin
+	cp $(OPENJTALK_DIR)/bin/open_jtalk $(MODULE_DIR)/bin/.
 
 clean:
-	rm -rf node_modules build bin/open_jtalk
+	rm -rf $(MODULE_DIR)/node_modules
+	rm -rf $(MODULE_DIR)/build
+	rm -rf $(MODULE_DIR)/bin
 	cd $(OPENJTALK_DIR) && make distclean
 	cd $(HTSENGINE_DIR) && make distclean
