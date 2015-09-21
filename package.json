@@ -1,6 +1,6 @@
 {
-	"name"            : "OpenJTalk",
-	"version"         : "0.1.1",
+	"name"            : "openjtalk",
+	"version"         : "0.1.4",
 	"description"     : "TTS using OpenJTalk",
 	"main"            : "openjtalk.js",
 	"dependencies"    : {
@@ -8,8 +8,8 @@
 	},
 	"devDependencies" : {},
 	"scripts"         : {
-		"test"            : "node test/test",
-		"install"         : "make"
+		"test"    : "node test/test",
+		"install" : "make"
 	},
 	"repository"      : "https://github.com/hecomi/node-openjtalk",
 	"author"          : "hecomi"
