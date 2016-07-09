@@ -5,9 +5,9 @@ var exec = require('child_process').exec
 
 // デフォルトパラメタ
 var DefaultOptions = {
-	openjtalk_bin   : path.join(__dirname, '/bin/open_jtalk'),
-	dic_dir         : path.join(__dirname, '/dic/open_jtalk_dic_utf_8-1.09'),
-	htsvoice        : path.join(__dirname, '/voice/mei/mei_normal.htsvoice'),
+	openjtalk_bin : path.join(__dirname, '/bin/open_jtalk'),
+	dic_dir       : path.join(__dirname, '/dic/open_jtalk_dic_utf_8-1.09'),
+	htsvoice      : path.join(__dirname, '/voice/mei/mei_normal.htsvoice'),
 };
 
 // OpenJTalk で wav ファイルを生成するクラス
@@ -29,7 +29,7 @@ OpenJTalk.prototype = {
 		var pitch    = this.pitch
 		  , callback = null
 		;
-		if ( typeof(arguments[1]) == 'number' ) {
+		if (typeof(arguments[1]) == 'number') {
 			pitch = arguments[1];
 		}
 		for (var i = 1; i <= 2; ++i) {
@@ -69,38 +69,24 @@ OpenJTalk.prototype = {
 		var wavFileName = uuid() + '.wav';
 
 		var ojtCmd = this.openjtalk_bin;
-		if(this.htsvoice){
-			ojtCmd += ' -m ' + this.htsvoice;
-		}
-		if(this.dic_dir){
-			ojtCmd += ' -x ' + this.dic_dir;
-		}
-		if(this.sampling_rate){
-			ojtCmd += ' -s ' + this.sampling_rate;
-		}
-		if(pitch){
-			ojtCmd += ' -p ' + pitch;
-		}
-		if(this.alpha){
-			ojtCmd += ' -a ' + this.alpha;
-		}
-		if(this.beta){
-			ojtCmd += ' -b ' + this.beta;
-		}
-		if(this.uv_threshold){
-			ojtCmd += ' -u ' + this.uv_threshold;
-		}
-		if(this.gv_weight_mgc){
-			ojtCmd += ' -jm ' + this.gv_weight_mgc;
-		}
-		if(this.gv_weight_lf0){
-			ojtCmd += ' -jf ' + this.gv_weight_lf0;
-		}
-		if(this.audio_buff_size){
-			ojtCmd += ' -z ' + this.audio_buff_size;
-		}
-		if(wavFileName){
-			ojtCmd += ' -ow ' + wavFileName;
+		var options = {
+			m  : this.htsvoice,
+			x  : this.dic_dir,
+			s  : this.sampling_rate,
+			p  : pitch,
+			a  : this.alpha,
+			b  : this.beta,
+			u  : this.uv_threshold,
+			jm : this.gv_weight_mgc,
+			jf : this.gv_weight_lf0,
+			z  : this.audio_buff_size,
+			ow : wavFileName
+		};
+		for (var option in options) {
+			var value = options[option];
+			if (value) {
+				ojtCmd += ' -' + option + ' ' + value;
+			}
 		}
 
 		var cmd = 'echo "' + str + '" | ' + ojtCmd;
