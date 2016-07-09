@@ -6,7 +6,7 @@ var exec = require('child_process').exec
 // デフォルトパラメタ
 var DefaultOptions = {
 	openjtalk_bin   : path.join(__dirname, '/bin/open_jtalk'),
-	dic_dir         : path.join(__dirname, '/dic/open_jtalk_dic_utf_8-1.08'),
+	dic_dir         : path.join(__dirname, '/dic/open_jtalk_dic_utf_8-1.09'),
 	htsvoice        : path.join(__dirname, '/voice/mei/mei_normal.htsvoice'),
 	sampling_rate   : 48000,
 	pitch           : 220,
