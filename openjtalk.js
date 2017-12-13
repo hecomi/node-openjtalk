@@ -8,6 +8,7 @@ var DefaultOptions = {
 	openjtalk_bin : path.join(__dirname, '/bin/open_jtalk'),
 	dic_dir       : path.join(__dirname, '/dic/open_jtalk_dic_utf_8-1.09'),
 	htsvoice      : path.join(__dirname, '/voice/mei/mei_normal.htsvoice'),
+	wav_dir		  : '.',
 };
 
 // OpenJTalk で wav ファイルを生成するクラス
@@ -80,7 +81,7 @@ OpenJTalk.prototype = {
 			jm : this.gv_weight_mgc,
 			jf : this.gv_weight_lf0,
 			z  : this.audio_buff_size,
-			ow : wavFileName
+			ow : path.join(this.wav_dir, wavFileName)
 		};
 		for (var option in options) {
 			var value = options[option];
