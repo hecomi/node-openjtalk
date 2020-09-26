@@ -1,4 +1,5 @@
-var exec = require('child_process').exec
+var execFile = require('child_process').execFile
+  , spawn = require('child_process').spawn
   , path = require('path')
   , uuid = require('uuid-v4')
 ;
@@ -59,8 +60,8 @@ OpenJTalk.prototype = {
 			case 'linux'  : player = 'aplay';  break;
 			default       : player = 'play';   break;
 		}
-		var cmd = player+ ' ' + wavFileName + '&& rm ' + wavFileName;
-		exec(cmd, function(err, stdout, stderr) {
+		execFile(player, [wavFileName], function(err, stdout, stderr) {
+			execFile('rm', [wavFileName]);
 			if (callback) callback(err, stdout, stderr);
 		});
 	},
@@ -69,7 +70,7 @@ OpenJTalk.prototype = {
 	_makeWav : function (str, pitch, callback) {
 		var wavFileName = uuid() + '.wav';
 
-		var ojtCmd = this.openjtalk_bin;
+		var ojtCmd = [this.openjtalk_bin];
 		var options = {
 			m  : this.htsvoice,
 			x  : this.dic_dir,
@@ -86,18 +87,56 @@ OpenJTalk.prototype = {
 		for (var option in options) {
 			var value = options[option];
 			if (value) {
-				ojtCmd += ' -' + option + ' ' + value;
+				ojtCmd.push('-' + option);
+				ojtCmd.push(value);
 			}
 		}
 
-		var cmd = 'echo "' + str + '" | ' + ojtCmd;
-		exec(cmd, function(err, stdout, stderr) {
+		this._securePipeExec('echo', [str], ojtCmd[0], ojtCmd.slice(1), function(err, stdout, stderr) {
 			var result = {
 				stdout : stdout,
 				stderr : stderr,
 				wav    : wavFileName
 			};
 			if (callback) callback(err, result);
+		});
+	},
+
+	// Securely execute piped commands
+	_securePipeExec : function (cmd1, cmd1Args, cmd2, cmd2Args, callback) {
+		let stdout = '';
+		let stderr = '';
+		const spCmd1 = spawn(cmd1, cmd1Args);
+		const spCmd2 = spawn(cmd2, cmd2Args);
+
+		spCmd1.stdout.on('data', (data) => {
+			spCmd2.stdin.write(data);
+		});
+
+		spCmd1.stderr.on('data', (data) => {
+            stderr += data;
+		});
+
+		spCmd1.on('close', (code) => {
+			if (code !== 0) {
+				console.error(`${cmd1} process exited with code ${code}`);
+			}
+			spCmd2.stdin.end();
+		});
+
+		spCmd2.stdout.on('data', (data) => {
+			stdout += data.toString();
+		});
+
+		spCmd2.stderr.on('data', (data) => {
+			stderr+= data;
+		});
+
+		spCmd2.on('close', (code) => {
+			if (code !== 0) {
+				console.error(`${cmd2} process exited with code ${code}`);
+			}
+			if (callback) callback(code, stdout, stderr);
 		});
 	}
 };
