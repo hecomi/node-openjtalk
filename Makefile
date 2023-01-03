@@ -1,7 +1,7 @@
 OS = ${shell uname}
 MODULE_DIR = ${shell pwd}
 HTSENGINE_DIR = $(MODULE_DIR)/lib/hts_engine_API-1.10/
-OPENJTALK_DIR = $(MODULE_DIR)/lib/open_jtalk-1.09/
+OPENJTALK_DIR = $(MODULE_DIR)/lib/open_jtalk-1.11/
 
 all: htsengine openjtalk
 
